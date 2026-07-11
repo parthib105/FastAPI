@@ -1,0 +1,82 @@
+{
+  "P001": {
+    "name": "Ananya Sharma",
+    "city": "Guwahati",
+    "age": 28,
+    "gender": "female",
+    "height": 1.65,
+    "weight": 90.0,
+    "bmi": 33.06,
+    "verdict": "Obese"
+  },
+  "P002": {
+    "name": "Ravi Mehta",
+    "city": "Mumbai",
+    "age": 35,
+    "gender": "male",
+    "height": 1.75,
+    "weight": 85,
+    "bmi": 27.76,
+    "verdict": "Overweight"
+  },
+  "P003": {
+    "name": "Sneha Kulkarni",
+    "city": "Pune",
+    "age": 22,
+    "gender": "female",
+    "height": 1.6,
+    "weight": 45,
+    "bmi": 17.58,
+    "verdict": "Underweight"
+  },
+  "P004": {
+    "name": "Arjun Verma",
+    "city": "Bangalore",
+    "age": 40,
+    "gender": "male",
+    "height": 1.8,
+    "weight": 95,
+    "bmi": 29.32,
+    "verdict": "Overweight"
+  },
+  "P005": {
+    "name": "Neha Sinha",
+    "city": "Kolkata",
+    "age": 30,
+    "gender": "female",
+    "height": 1.55,
+    "weight": 75,
+    "bmi": 31.22,
+    "verdict": "Obese"
+  },
+  "P006": {
+    "name": "Rahul Desai",
+    "city": "Ahmedabad",
+    "age": 45,
+    "gender": "male",
+    "height": 1.70,
+    "weight": 68.0,
+    "bmi": 23.53,
+    "verdict": "Normal"
+  },
+  "P007": {
+    "name": "Priya Patel",
+    "city": "Surat",
+    "age": 26,
+    "gender": "female",
+    "height": 1.62,
+    "weight": 58.0,
+    "bmi": 22.10,
+    "verdict": "Normal"
+  },
+  "P008": {
+    "name": "Vikram Singh",
+    "city": "Delhi",
+    "age": 50,
+    "gender": "male",
+    "height": 1.78,
+    "weight": 110.0,
+    "bmi": 34.72,
+    "verdict": "Obese"
+  }
+}
