@@ -1,22 +1,18 @@
 import json
-from fastapi import FastAPI
+from fastapi import APIRouter
 
-app = FastAPI()
+router = APIRouter()
 
 def load_data():
-    with open("patients.json", "r") as f:
+    with open("../patients.json", "r") as f:
         data = json.load(f)
     
     return data
 
-@app.get("/")
-def hello():
-    return {"message": "Patient Management System API"}
-
-@app.get("/about")
+@router.get("/about")
 def about():
     return {"message": "A fully functional API to manage your patient records"}
 
-@app.get("/view")
+@router.get("/view")
 def view():
     return load_data()
