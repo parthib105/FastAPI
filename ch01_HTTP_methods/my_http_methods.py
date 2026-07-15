@@ -1,9 +1,10 @@
 import json
+from typing import Dict, Any
 from fastapi import APIRouter
 
 router = APIRouter()
 
-def load_data():
+def load_data() -> Dict[str, Any]:
     with open("../patients.json", "r") as f:
         data = json.load(f)
     
