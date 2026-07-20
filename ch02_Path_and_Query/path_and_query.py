@@ -15,7 +15,6 @@ Query parameters are optional key-value pairs appended to the end of a URL used 
 eg: /patient?city=Delhi&sort_by=age
 '''
 
-import json
 from ch01_HTTP_methods import load_data
 from fastapi import Path, Query
 from fastapi import HTTPException, APIRouter

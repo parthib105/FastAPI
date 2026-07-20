@@ -1,4 +1,3 @@
-import json
 from ch04_Post_request import Patient
 from fastapi.responses import JSONResponse
 from fastapi import APIRouter, HTTPException
