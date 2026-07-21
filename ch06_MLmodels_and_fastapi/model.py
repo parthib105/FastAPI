@@ -1,9 +1,13 @@
+import pickle
 import numpy as np
 import pandas as pd
 from typing import List
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 
 tier_1_cities = ["Mumbai", "Delhi", "Bangalore", "Chennai", "Kolkata", "Hyderabad", "Pune"]
 tier_2_cities = [
@@ -39,7 +43,7 @@ def _city_tier(city: str) -> int:
         return 2
     return 3
 
-def create_and_apply_features(df: pd.DataFrame) -> None:
+def create_and_apply_features(df: pd.DataFrame) -> pd.DataFrame:
     # add bmi
     df['bmi'] = df['weight'] / (df['height'] ** 2)
 
@@ -69,8 +73,8 @@ if __name__ == '__main__':
     df_copy = create_and_apply_features(df_copy)
 
     # select features and target
-    X: np.ndarray = df_copy[["bmi", "age_group", "lifestyle_risk", "city_tier", "income_lpa", "occupation"]].to_numpy()
-    y: np.ndarray = df_copy["insurance_premium_category"].to_numpy()
+    X: pd.DataFrame = df_copy[["bmi", "age_group", "lifestyle_risk", "city_tier", "income_lpa", "occupation"]]
+    y: pd.DataFrame = df_copy["insurance_premium_category"]
 
     # define categorical and numerical features
     categorical_features: List[str] = ['age_group', 'lifestyle_risk', 'occupation', 'city_tier']
@@ -79,11 +83,39 @@ if __name__ == '__main__':
     # create column transfer for OHE
     preprocessor: ColumnTransformer = ColumnTransformer(
         transformers=[
-            ("cat", OneHotEncoder(), categorical_features),
-            ("num", "passthrough", numerical_features)
+            ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_features),
+            ("num", StandardScaler(), numerical_features)
         ]
     )
 
     # create a pipeline with preprocessing and random forest classifier
+    pipeline = Pipeline(steps=[
+        ("preprocessor", preprocessor),
+        (
+            "classifier",
+            RandomForestClassifier(
+                n_estimators=300,
+                max_depth=None,
+                min_samples_leaf=2,
+                class_weight="balanced",
+                criterion="entropy",
+                random_state=42,
+                n_jobs=-1
+            )  
+        )
+    ])
     
-
+    # Split data and train model
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+    pipeline.fit(X_train, y_train)
+    
+    # Predict and evaluate
+    y_pred = pipeline.predict(X_test)
+    print(classification_report(y_test, y_pred))
+    print(accuracy_score(y_test, y_pred))
+    print("Confusion matrix:\n", confusion_matrix(y_test, y_pred))
+    
+    # Save the trained pipeline using pickle
+    pickle_model_path = "trained_model.pkl"
+    with open(pickle_model_path, "wb") as f:
+        pickle.dump(pipeline, f)
