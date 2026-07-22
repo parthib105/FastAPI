@@ -2,4 +2,6 @@ pandas
 fastapi
 uvicorn
 pydantic
+streamlit
+requests
 scikit-learn

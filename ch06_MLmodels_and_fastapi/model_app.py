@@ -80,6 +80,16 @@ def predict_premium(data: UserInput):
         'occupation': data.occupation
     }])
 
+    # Predict category and probabilities
     prediction = my_model.predict(input_df)[0]
-
-    return JSONResponse(status_code=200, content={'predicted_category': prediction})
+    # Get probability distribution for all classes
+    probas = my_model.predict_proba(input_df)[0]
+    # Map class labels to probabilities
+    class_probabilities = dict(zip(my_model.classes_, probas.tolist()))
+    # Confidence is the probability of the predicted class
+    confidence = class_probabilities.get(prediction, 0.0)
+    return JSONResponse(status_code=200, content={
+        'predicted_category': prediction,
+        'confidence': confidence,
+        'class_probabilities': class_probabilities
+    })
