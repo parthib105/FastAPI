@@ -5,3 +5,5 @@ pydantic
 streamlit
 requests
 scikit-learn
+streamlit
+sklearn
